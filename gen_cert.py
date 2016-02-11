@@ -2269,7 +2269,7 @@ class CertificateGen(object):
         # styleOpenSans.fontName = 'OpenSans-BoldItalic'
 
         styleOpenSans.fontSize = 24
-        styleOpenSans.leading = 10
+        styleOpenSans.leading = 20
         styleOpenSans.textColor = colors.Color(
             0, 0.624, 0.886)
         styleOpenSans.alignment = TA_LEFT
@@ -2277,16 +2277,8 @@ class CertificateGen(object):
         paragraph_string = u"<b><i>{0}: {1}</i></b>".format(
             self.course, self.long_course.decode('utf-8'))
         paragraph = Paragraph(paragraph_string, styleOpenSans)
-        # paragraph.wrapOn(c, WIDTH * mm, HEIGHT * mm)
-        if 'PH207x' in self.course:
-            paragraph.wrapOn(c, 180 * mm, HEIGHT * mm)
-            paragraph.drawOn(c, LEFT_INDENT * mm, 91 * mm)
-        elif '6.00x' in self.course:
-            paragraph.wrapOn(c, WIDTH * mm, HEIGHT * mm)
-            paragraph.drawOn(c, LEFT_INDENT * mm, 95 * mm)
-        else:
-            paragraph.wrapOn(c, WIDTH * mm, HEIGHT * mm)
-            paragraph.drawOn(c, LEFT_INDENT * mm, 99 * mm)
+        paragraph.wrapOn(c, (WIDTH - RIGHT_INDENT - LEFT_INDENT + 10) * mm, HEIGHT * mm)
+        paragraph.drawOn(c, LEFT_INDENT * mm, 92 * mm)
 
         # A course of study..
 
