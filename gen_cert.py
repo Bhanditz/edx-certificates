@@ -2320,7 +2320,8 @@ class CertificateGen(object):
             0.302, 0.306, 0.318)
         styleOpenSansLight.alignment = TA_CENTER
 
-        paragraph_string = "Issued {0}".format(self.issued_date)
+        date_string = get_cert_date(False, "ROLLING")
+        paragraph_string = "Issued {0}".format(date_string)
 
         # Right justified so we compute the width
         width = stringWidth(
