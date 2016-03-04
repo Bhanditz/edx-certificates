@@ -535,7 +535,7 @@ class CertificateGen(object):
 
         paragraph_string = "a course of study offered by <b>{0}</b>" \
                            ", an online learning<br /><br />initiative of " \
-                           "<b>{1}</b> through <b>edX</b>.".format(
+                           "<b>{1}</b>.".format(
                                self.org, self.long_org.decode('utf-8'))
 
         paragraph = Paragraph(paragraph_string, styleOpenSansLight)
