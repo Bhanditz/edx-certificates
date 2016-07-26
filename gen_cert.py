@@ -98,7 +98,7 @@ class CertificateGen(object):
 
     def __init__(self, course_id, template_pdf=None, aws_id=None, aws_key=None,
                  dir_prefix=None, long_org=None, long_course=None, issued_date=None,
-                 credits_number=None, credits_provider=None):
+                 course_credits=None, credits_provider=None):
         """Load a pdf template and initialize
 
         Multiple certificates can be generated and uploaded for a single course.
@@ -135,9 +135,6 @@ class CertificateGen(object):
         cert_data = settings.CERT_DATA.get(course_id, settings.CERT_DATA.get('DEFAULT'))
         self.cert_data = cert_data
 
-        self.credits_number = credits_number
-        self.credits_provider = credits_provider
-
         def interstitial_factory():
             """ Generate default values for interstitial_texts defaultdict """
             return itertools.repeat(cert_data.get('interstitial', {}).get('Pass', u'').encode('utf-8')).next
@@ -145,7 +142,7 @@ class CertificateGen(object):
         # lookup long names from the course_id
         try:
             self.long_org = long_org or cert_data.get('LONG_ORG', '').encode('utf-8') or settings.DEFAULT_ORG
-            self.long_course = cert_data.get('LONG_COURSE', '').encode('utf-8') or long_course or ''
+            self.long_course = long_course or cert_data.get('LONG_COURSE', '').encode('utf-8') or ''
             self.issued_date = issued_date or cert_data.get('ISSUED_DATE', '').encode('utf-8') or 'ROLLING'
             self.interstitial_texts = collections.defaultdict(interstitial_factory())
             interstitial_dict = {
@@ -155,8 +152,8 @@ class CertificateGen(object):
             self.interstitial_texts.update(interstitial_dict)
             self.locale = cert_data.get('locale', settings.DEFAULT_LOCALE).encode('utf-8')
             self.course_translations = cert_data.get('translations', {})
-            self.credits_number = cert_data.get('CREDITS_NUMBER', '')
-            self.credits_provider = cert_data.get('CREDITS_PROVIDER', '')
+            self.credits_number = course_credits or cert_data.get('CREDITS_NUMBER', '')
+            self.credits_provider = credits_provider or cert_data.get('CREDITS_PROVIDER', '')
         except KeyError:
             log.critical("Unable to lookup long names for course {0}".format(course_id))
             raise

@@ -78,6 +78,8 @@ def main():
         course_name = ''
         template_pdf = None
         name = ''
+        course_credits = None
+        course_credit_provider = None
 
         certdata = manager.get_submission()
         log.debug('xqueue response: {0}'.format(certdata))
@@ -93,6 +95,9 @@ def main():
             grade = xqueue_body.get('grade', None)
             issued_date = xqueue_body.get('issued_date', None)
             designation = xqueue_body.get('designation', None)
+            course_credits = xqueue_body.get('credits', None)
+            course_credit_provider = xqueue_body.get('credit_provider', None)
+
             if last_course != course_id:
                 cert = CertificateGen(
                     course_id,
@@ -101,6 +106,8 @@ def main():
                     aws_key=args.aws_key,
                     long_course=course_name.encode('utf-8'),
                     issued_date=issued_date,
+                    course_credits=course_credits,
+                    credit_provider=course_credit_provider,
                 )
                 last_course = course_id
         except (TypeError, ValueError, KeyError, IOError) as e:
