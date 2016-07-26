@@ -21,6 +21,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.pdfmetrics import stringWidth
+from glob import glob
 from HTMLParser import HTMLParser
 from babel.dates import format_date
 

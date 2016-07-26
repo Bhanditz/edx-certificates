@@ -3,6 +3,15 @@
 This script will continuously monitor an XQueue to generate course
 certificates for users.
 
+## Trinity / Texas Gateway specific
+
+`edx-platform` ([latest customer branch](https://github.com/appsembler/edx-platform/tree/trinityedu/feature/mergeDogwood.3)), [`trinityeduedx`](https://github.com/appsembler/trinityeduedx), and this repo have customizations to support adding two fields
+* `credits`
+* `credit_provider`
+
+to the Course XBlock type.  They can be edited in Advanced Settings on the Course.  The custom Texas Gateway template in the [`txgateway/master` branch of `edx-custom-certs`](https://github.com/appsembler/edx-custom-certs/tree/txgateway/master) uses the `credits` value and `credit_provider` value.  A unit of 'hours' is added to `credits`.
+
+
 
 Generating sample certificates
 -------------------------
