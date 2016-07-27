@@ -99,7 +99,7 @@ class CertificateGen(object):
 
     def __init__(self, course_id, template_pdf=None, aws_id=None, aws_key=None,
                  dir_prefix=None, long_org=None, long_course=None, issued_date=None,
-                 course_credits=None, credits_provider=None):
+                 course_credits=None, credit_provider=None):
         """Load a pdf template and initialize
 
         Multiple certificates can be generated and uploaded for a single course.
@@ -154,7 +154,7 @@ class CertificateGen(object):
             self.locale = cert_data.get('locale', settings.DEFAULT_LOCALE).encode('utf-8')
             self.course_translations = cert_data.get('translations', {})
             self.credits_number = course_credits or cert_data.get('CREDITS_NUMBER', '')
-            self.credits_provider = credits_provider or cert_data.get('CREDITS_PROVIDER', '')
+            self.credit_provider = credit_provider or cert_data.get('CREDITS_PROVIDER', '')
         except KeyError:
             log.critical("Unable to lookup long names for course {0}".format(course_id))
             raise
@@ -2301,7 +2301,7 @@ class CertificateGen(object):
             0.302, 0.306, 0.318)
         styleOpenSansBold.alignment = TA_CENTER
 
-        paragraph_string = "CPE Provider: {0}".format(self.credits_provider)
+        paragraph_string = "CPE Provider: {0}".format(self.credit_provider)
         paragraph = Paragraph(paragraph_string, styleOpenSansBold)
 
         paragraph.wrapOn(c, WIDTH * mm, HEIGHT * mm)

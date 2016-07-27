@@ -107,7 +107,7 @@ def main():
                     long_course=course_name.encode('utf-8'),
                     issued_date=issued_date,
                     course_credits=course_credits,
-                    credit_provider=course_credit_provider,
+                    credit_provider=course_credit_provider
                 )
                 last_course = course_id
         except (TypeError, ValueError, KeyError, IOError) as e:
