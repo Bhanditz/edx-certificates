@@ -1,4 +1,12 @@
 ---
+DEFAULT:
+  ORG: Metalogix Academy
+  LONG_ORG: Metalogix International
+  TEMPLATEFILE: certificate-template-v1-metalogix.pdf
+
+course-v1:Metalogix/CM301/2015:
+  LONG_COURSE: Content Matrix Tech Fundamentals
+
 edX/DemoX/Demo_Course:
   ISSUED_DATE: Jan. 1st, 1970
   LONG_COURSE: Sample course with some utf-8 char like è

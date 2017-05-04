@@ -217,7 +217,8 @@ class CertificateGen(object):
         self.aws_id = str(aws_id)
         self.aws_key = str(aws_key)
 
-        cert_data = settings.CERT_DATA.get(course_id, {})
+        #cert_data = settings.CERT_DATA.get(course_id, {})
+	cert_data = settings.CERT_DATA.get(course_id, settings.CERT_DATA.get('DEFAULT'))
         self.cert_data = cert_data
 
         def interstitial_factory():
@@ -457,17 +458,18 @@ class CertificateGen(object):
         paragraph = Paragraph("{0}".format(
             paragraph_string), styleOpenSansLight)
         paragraph.wrapOn(c, WIDTH * mm, HEIGHT * mm)
-        paragraph.drawOn(c, (WIDTH - RIGHT_INDENT - width) * mm, 163 * mm)
+        #paragraph.drawOn(c, (WIDTH - RIGHT_INDENT - width) * mm, 163 * mm)
+	paragraph.drawOn(c, (WIDTH - RIGHT_INDENT - width) * mm, 171 * mm)
 
         # Issued ..
-
         styleOpenSansLight.fontSize = 12
         styleOpenSansLight.leading = 10
         styleOpenSansLight.textColor = colors.Color(
             0.302, 0.306, 0.318)
         styleOpenSansLight.alignment = TA_LEFT
 
-        paragraph_string = "Issued {0}".format(self.issued_date)
+        #paragraph_string = "Issued {0}".format(self.issued_date)
+	paragraph_string = "Issued {0}".format(get_cert_date(False, "ROLLING"))
 
         # Right justified so we compute the width
         width = stringWidth(
@@ -478,7 +480,8 @@ class CertificateGen(object):
         paragraph = Paragraph("<i>{0}</i>".format(
             paragraph_string), styleOpenSansLight)
         paragraph.wrapOn(c, WIDTH * mm, HEIGHT * mm)
-        paragraph.drawOn(c, (WIDTH - RIGHT_INDENT - width) * mm, 155 * mm)
+        #paragraph.drawOn(c, (WIDTH - RIGHT_INDENT - width) * mm, 155 * mm)
+	paragraph.drawOn(c, (WIDTH - RIGHT_INDENT - width) * mm, 163 * mm)
 
         # This is to certify..
 
@@ -491,7 +494,8 @@ class CertificateGen(object):
         paragraph_string = "This is to certify that"
         paragraph = Paragraph(paragraph_string, styleOpenSansLight)
         paragraph.wrapOn(c, WIDTH * mm, HEIGHT * mm)
-        paragraph.drawOn(c, LEFT_INDENT * mm, 132.5 * mm)
+        #paragraph.drawOn(c, LEFT_INDENT * mm, 132.5 * mm)
+	paragraph.drawOn(c, LEFT_INDENT * mm, 142.5 * mm)
 
         #  Student name
 
@@ -513,7 +517,8 @@ class CertificateGen(object):
         # decrease the font size
         if width > 153:
             style.fontSize = 18
-            nameYOffset = 121.5
+            #nameYOffset = 121.5
+	    nameYOffset = 131.5
         else:
             style.fontSize = 34
             nameYOffset = 124.5
@@ -596,7 +601,7 @@ class CertificateGen(object):
 
         paragraph_string = "a course of study offered by <b>{0}</b>" \
                            ", an online learning<br /><br />initiative of " \
-                           "<b>{1}</b> through <b>edX</b>.".format(
+                           "<b>{1}</b>".format(
                                self.org, self.long_org.decode('utf-8'))
 
         paragraph = Paragraph(paragraph_string, styleOpenSansLight)
@@ -613,8 +618,8 @@ class CertificateGen(object):
 
         paragraph_string = "HONOR CODE CERTIFICATE<br/>" \
             "*Authenticity of this certificate can be verified at " \
-            "<a href='{verify_url}/{verify_path}/{verify_uuid}'>" \
-            "{verify_url}/{verify_path}/{verify_uuid}</a>"
+	    "<a href='{verify_url}/{verify_path}/{verify_uuid}/valid.html'>" \
+            "{verify_url}/{verify_path}/{verify_uuid}/valid.html</a>"
 
         paragraph_string = paragraph_string.format(
             verify_url=settings.CERT_VERIFY_URL,
